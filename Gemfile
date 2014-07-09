@@ -40,5 +40,3 @@ gem 'spring',        group: :development
 
 gem 'gmaps4rails'
 
-gem 'rails_12factor', group: :production
-
