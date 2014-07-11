@@ -18,15 +18,17 @@
 			}
 		}, 
 		function(){
-	  		/*markers = handler.addMarkers([
-	    		{
-	      			"lat": 51.511918,
-	      			"lng": -0.127501
-    			}
+	  		markers = handler.addMarkers([
+	  			<% @places.each do |place| %>
+		    		{
+		      			"lat": <%= place.latitude %>,
+		      			"lng": <%= place.longitude %>,
+		      			"infowindow": "<%= place.name %>"
+	    			},
+    			<% end %>
 	  		]);
 
 
-	 		handler.bounds.extendWith(markers);*/
-	  		handler.fitMapToBounds();
+	 		handler.bounds.extendWith(markers);
 		});
 </script>
