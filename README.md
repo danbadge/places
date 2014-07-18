@@ -1,5 +1,10 @@
-places
+Places
 ======
+A map displaying a bunch of restaurants, bars and cafes.
+
+Local dev setup
+===============
+
 https://devcenter.heroku.com/articles/heroku-postgresql#local-setup
 
 > sudo apt-get install postgresql
