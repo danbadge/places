@@ -6,7 +6,11 @@ class MapController < ApplicationController
 
   	Place.all.each do |place|
   		if !place.google_place_id.to_s.empty?
-  			@places.push(get_place(place.google_place_id))
+  			begin
+  				@places.push(get_place(place.google_place_id))
+  			rescue
+  				#do nothing
+  			end
   		end
   	end
   	return @places
