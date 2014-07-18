@@ -9,15 +9,15 @@ https://devcenter.heroku.com/articles/heroku-postgresql#local-setup
 
 > sudo apt-get install postgresql
 
-> sudo -u postgres createuser <username> --superuser
+> sudo -u postgres createuser your_username --superuser
 
-> sudo -u postgres createdb --owner=<username> <username>
+> sudo -u postgres createdb --owner=your_username your_username
+
+This should run without error
 
 > psql
 
-- should run without error
-
-then you can do
+Then you can do
 
 > rake db:create db:migrate
 
