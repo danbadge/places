@@ -4,16 +4,47 @@ class MapController < ApplicationController
   def index
   	@places = Array.new
 
-  	@places.push(Place.new(name:"Dock Kitchen",latitude: 51.526608,longitude: -0.21522,rating: 3.9, place_type:"restaurant"))
-  	@places.push(Place.new(name:"DSTRKT",latitude: 51.510398,longitude: -0.132361,rating: 4.1, place_type:"restaurant"))
-  	@places.push(Place.new(name:"Steam & Rye",latitude: 51.513477,longitude: -0.08319,rating: 4.1, place_type:"restaurant"))
-  	@places.push(Place.new(name:"The Ledbury",latitude: 51.516684,longitude: -0.200064,rating: 4.6, place_type:"restaurant"))
+  	Place.all.each do |place|
+  		if !place.google_place_id.to_s.empty?
+  			@places.push(get_place(place.google_place_id))
+  		end
+  	end
+  	return @places
   end
 
   def create
-  	place_id = params[:placeId]
+  	place_id = params[:google_place_id]
+  	puts place_id
+  	if place_id.to_s.empty?
+  		raise Error.new()
+  	else
+		place = Place.new(:google_place_id => place_id)
+		place.save!
+		@message = "THIS TOTALLY WORKED"
+  	end
+  end
 
-  	place = Place.new(:google_place_id => @place_id)
-	place.save!
+  def get_place(id)
+  	api_key = "AIzaSyA6ww-54JxL_krZ0VyA5cCS8ALCgEowhss"
+  	request = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{id}&key=#{api_key}"
+  	response = HTTParty.get(request)
+  	
+	place_details = response["result"]
+
+  	place = Place.new()
+  	place.name = place_details["name"]
+  	location = place_details["geometry"]["location"]
+  	place.latitude = location["lat"]
+  	place.longitude = location["lng"]
+  	place.rating = place_details["rating"]
+  	place.place_type = ''
+
+  	place_details["types"].each do |type|
+  		if place.place_type.to_s.length > 0 
+  			place.place_type = place.place_type + ", "
+		end
+  		place.place_type = place.place_type + "#{type}"
+	end
+	return place
   end
 end
