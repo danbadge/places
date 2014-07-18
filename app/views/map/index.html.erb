@@ -19,7 +19,7 @@
 		    		{
 		      			"lat": <%= place.latitude %>,
 		      			"lng": <%= place.longitude %>,
-		      			"infowindow": "<%= place.name %>"
+		      			"infowindow": "<div><strong><%= place.name %></strong></div><div class='grey'><em><%= place.place_type %></div></em><div>Rating: <%= place.rating %></div>"
 	    			},
     			<% end %>
 	  		]);
