@@ -1,5 +1,10 @@
 class MapController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:create]
+  before_filter :setup_google_api
+
+  def setup_google_api
+    @google_api = PlaceDetails.new()
+  end
 
   def index
   	@places = Array.new
@@ -39,32 +44,6 @@ class MapController < ApplicationController
   end
 
   def get_place(id)
-  	api_key = "AIzaSyA6ww-54JxL_krZ0VyA5cCS8ALCgEowhss"
-  	request = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{id}&key=#{api_key}"
-  	
-    response = HTTParty.get(request)
-    puts response.code, response["status"]
-
-    unless response.code == 200 && response["status"] == "OK"
-      fail StandardError, "Could not find Google Place with Id: #{id}"
-    end
-  	
-    place_details = response["result"]
-
-  	place = Place.new()
-  	place.name = place_details["name"]
-  	location = place_details["geometry"]["location"]
-  	place.latitude = location["lat"]
-  	place.longitude = location["lng"]
-  	place.rating = place_details["rating"]
-  	place.place_type = ''
-
-  	place_details["types"].each do |type|
-  		if place.place_type.to_s.length > 0 
-  			place.place_type = place.place_type + ", "
-		end
-  		place.place_type = place.place_type + "#{type}"
-	end
-	return place
+    return @google_api.get_place(id)
   end
 end
