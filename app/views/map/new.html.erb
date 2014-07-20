@@ -1,0 +1,14 @@
+<div class="container">
+	<h1>Add a new place to your map</h1>
+	<br />
+	<%= form_for :place, url: place_path do |f| %>
+	  <p>
+	    <%= f.label :google_place_id %>
+	    <%= f.text_field :google_place_id %>
+	  </p>
+	 
+	  <p>
+	    <%= f.submit %>
+	  </p>
+	<% end %>
+</div>

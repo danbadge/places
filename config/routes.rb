@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'map#index'
 
+  get 'add' => 'map#new'
+  
   post 'place' => 'map#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
