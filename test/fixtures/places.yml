@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  longitude: 9.99
-  latitude: 9.99
-  type: 
-  rating: 9.99
+  name: goodplace
+  longitude: 9.01
+  latitude: 9.02
+  place_type: bar
+  rating: 4.09
+  google_place_id: goodplaceid
 
 two:
-  name: MyString
-  longitude: 9.99
-  latitude: 9.99
-  type: 
-  rating: 9.99
+  name: badplace
+  longitude: 8.01
+  latitude: 8.02
+  place_type: cafe
+  rating: 2.01
+  google_place_id: badplaceid
