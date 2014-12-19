@@ -43,3 +43,5 @@ gem 'gmaps4rails'
 gem 'rails_12factor', group: :production
 
 gem 'httparty'
+
+gem 'rspec-rails'
