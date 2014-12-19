@@ -6,6 +6,10 @@ class SearchForPlaces
   end
 
   def find(searchTerm)
+    if (searchTerm.size == 0)
+      return Array.new
+    end
+
     params = {
         keyword: searchTerm,
         key: @api_key,

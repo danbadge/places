@@ -20,4 +20,11 @@ describe 'searching for a place using google api' do
     places = searchForPlaces.find('kings head')
     expect(places.size).to be > 1
   end
+
+  it 'should return no places when search term is empty' do
+    searchForPlaces = SearchForPlaces.new
+    places = searchForPlaces.find('')
+    expect(places.size).to eq(0)
+  end
+
 end
