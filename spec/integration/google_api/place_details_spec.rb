@@ -16,4 +16,9 @@ describe 'retrieving a place from google api' do
     expect(place.place_type).to eq("bar,restaurant,food,establishment")
     expect(place.rating).to eq(4.7)
   end
+
+  it 'should return not found error if place does not exist' do
+    placesApi = PlaceDetails.new()
+    expect { placesApi.get_place('id_that_does_not_exist') }.to raise_error(StandardError, /Could not find Google Place with Id:/)
+  end
 end
