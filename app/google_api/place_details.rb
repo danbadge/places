@@ -8,26 +8,26 @@ class PlaceDetails
 	def get_place(id)
 		request = @base_url + @endpoint + "?placeid=#{id}&key=#{@api_key}"
 		response = HTTParty.get(request)
-	    puts response.code, response["status"]
-	    unless response.code == 200 && response["status"] == "OK"
-	      fail StandardError, "Could not find Google Place with Id: #{id}"
-	    end
-	  	
-	    place_details = response["result"]
+		puts response.code, response["status"]
+		unless response.code == 200 && response["status"] == "OK"
+			fail StandardError, "Could not find Google Place with Id: #{id}"
+		end
 
-	  	place = Place.new()
-	  	place.name = place_details["name"]
-	  	location = place_details["geometry"]["location"]
-	  	place.latitude = location["lat"]
-	  	place.longitude = location["lng"]
-	  	place.rating = place_details["rating"]
-	  	place.place_type = ''
+		place_details = response["result"]
 
-	  	place_details["types"].each do |type|
-	  		if place.place_type.to_s.length > 0 
+		place = Place.new()
+		place.name = place_details["name"]
+		location = place_details["geometry"]["location"]
+		place.latitude = location["lat"]
+		place.longitude = location["lng"]
+		place.rating = place_details["rating"]
+		place.place_type = ''
+
+		place_details["types"].each do |type|
+			if place.place_type.to_s.length > 0
 	  			place.place_type = place.place_type + ", "
 			end
-	  		place.place_type = place.place_type + "#{type}"
+			place.place_type = place.place_type + "#{type}"
 		end
 		return place
 	end
