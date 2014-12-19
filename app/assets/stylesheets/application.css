@@ -27,3 +27,21 @@ html,body {
 .full-height {
     height:100%;
 }
+
+.full-width {
+    width: 100%;
+}
+
+div.search-form {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+    position:absolute;
+}
+
+.relative {
+    position: relative;
+}
+
+.map-container {
+    padding-top: 56px;
+}
