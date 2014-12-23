@@ -13,10 +13,9 @@ describe 'Adding a place to the list' do
                              :rating => 5.5,
                              :place_type => 'these,are,types'
                   }.to_json,
-                  :headers => { 'Content-Type' => 'application/json' } )
+                  :headers => { 'Accept' => 'application/json', 'Content-Type' => 'application/json' } )
 
     expect(response.code).to eq(201)
-    puts response.headers.inspect
-    expect(response.headers.location).to eq('http://localhost:3000/place/google_place_id')
+    expect(response.headers['location']).to eq('http://localhost:3000/place/google_place_id')
   end
 end

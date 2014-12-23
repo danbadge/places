@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get 'add' => 'map#new'
   
-  post 'place' => 'map#create'
+  post 'place' => 'place#post'
 
   get 'search' => 'search#get'
 
