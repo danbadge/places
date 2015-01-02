@@ -2,9 +2,19 @@ class PlaceController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def post
-  	place = request.body.to_json
+    place_params = params['place']
+    #place = Place.new(:google_place_id => place_params[""])
+    #place.save!
     respond_to do |format|
-      format.json { render json: place, status: 201, location: "#{root_url}place/#{place['google_place_id']}" }
+      google_place_id = place_params['google_place_id']
+      format.json { render json: place_params, status: 201, location: "#{root_url}place/#{google_place_id}" }
+    end
+  end
+
+  def get
+    place = Place.find(params[:id])
+    respond_to do |format|
+      format.json { render json: place }
     end
   end
 end

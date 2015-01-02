@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   
   post 'place' => 'place#post'
 
+  get 'place/:id' => 'place#get'
+
   get 'search' => 'search#get'
 
   # The priority is based upon order of creation: first created -> highest priority.
