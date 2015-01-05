@@ -7,18 +7,7 @@ class MapController < ApplicationController
   end
 
   def index
-  	@places = Array.new
-
-  	Place.all.each do |place|
-  		if !place.google_place_id.to_s.empty?
-  			begin
-  				@places.push(get_place(place.google_place_id))
-  			rescue StandardError
-  				#do nothing
-  			end
-  		end
-  	end
-  	return @places
+  	Place.all
   end
 
   def get_place(id)
