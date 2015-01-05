@@ -18,3 +18,41 @@
 //= require bootstrap.min
 //= require underscore-min
 //= require gmaps/google
+
+$(function() { 
+	_.compile = function(templ) {
+		var compiled = this.template(templ);
+		compiled.render = function(ctx) {
+			return this(ctx);
+		}
+		return compiled;
+	}
+    var places = new Bloodhound({
+    	datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+    	queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: '../search?q=%QUERY'
+    });
+
+    places.initialize();
+
+    $('.search-form .typeahead').typeahead(null, {
+        name: 'google-places-search',
+        source: places.ttAdapter(),
+		templates: { 
+			suggestion:	_.compile("<p><div><strong><%= name %></strong><span class='grey small'> the address</span></div>" +
+					"<div class='grey small'><em><%= place_type %></em></div>" +
+					"<div class='grey small'>Rating: <%= rating %></div></p>")
+		}
+    })
+    .on('typeahead:selected', function (obj, datum) {
+    	$.ajax({
+			url:'../place',
+			type:"POST",
+			data:JSON.stringify(datum),
+			contentType:"application/json; charset=utf-8",
+			dataType:"json",
+			success: function() { location.reload() },
+			error: function() { alert('error') }
+		})
+    });
+});
