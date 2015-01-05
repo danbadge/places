@@ -21,28 +21,6 @@ class MapController < ApplicationController
   	return @places
   end
 
-  def add
-  end
-
-  def create
-  	place_id = params[:place][:google_place_id]
-  	
-  	if place_id.to_s.empty?
-  		render :status => :bad_request, :text => "Google's Place Id was empty, please try again."
-      return
-  	end
-
-    begin 
-      get_place(place_id)
-    rescue StandardError => error
-      render :status => :bad_request, :text => error.message
-      return
-    end
-		place = Place.new(:google_place_id => place_id)
-    place.save!
-		redirect_to :controller => "map", :action => "index"
-  end
-
   def get_place(id)
     return @google_api.get_place(id)
   end

@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
   root 'map#index'
-
-  get 'add' => 'map#new'
   
   post 'place' => 'place#post'
-
-  get 'place/:id' => 'place#get'
 
   get 'search' => 'search#get'
 
