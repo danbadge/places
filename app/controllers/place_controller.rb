@@ -10,11 +10,4 @@ class PlaceController < ApplicationController
       format.json { render json: place_params, status: 201, location: "#{root_url}place/#{google_place_id}" }
     end
   end
-
-  def get
-    place = Place.find(params[:id])
-    respond_to do |format|
-      format.json { render json: place }
-    end
-  end
 end
