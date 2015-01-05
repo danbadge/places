@@ -20,6 +20,17 @@
         name: 'google-places-search',
         displayKey: 'name',
         source: places.ttAdapter()
+    })
+    .on('typeahead:selected', function (obj, datum) {
+    	$.ajax({
+			url:'../place',
+			type:"POST",
+			data:JSON.stringify(datum),
+			contentType:"application/json; charset=utf-8",
+			dataType:"json",
+			success: function() { location.reload() },
+			error: function() { alert('error') }
+		})
     });
 </script>
 
