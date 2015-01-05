@@ -13,5 +13,6 @@ describe 'index page' do
 
   	expect(places.size).to be > 0
   	expect(places).to include(place)
+  	expect(places).to be_a_kind_of(Array)
   end
 end

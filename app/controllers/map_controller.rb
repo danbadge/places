@@ -7,7 +7,15 @@ class MapController < ApplicationController
   end
 
   def index
-  	Place.all
+  	@places = Array.new
+
+  	Place.all.each do |place|
+  		if place.name != 'test place'
+        @places.push(place)
+  		end
+  	end
+
+  	return @places
   end
 
   def get_place(id)
