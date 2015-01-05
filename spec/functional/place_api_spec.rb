@@ -15,6 +15,6 @@ describe 'When adding a place to the list' do
                   :headers => { 'Accept' => 'application/json', 'Content-Type' => 'application/json' } )
 
     expect(response.code).to eq(201)
-    expect(response.headers['location']).to start_with("http://localhost:3000/place/")
+    expect(response.headers['location']).to match(/http:\/\/localhost:3000\/place\/\d+/)
   end
 end
