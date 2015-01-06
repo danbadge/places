@@ -39,7 +39,7 @@ $(function() {
         name: 'google-places-search',
         source: places.ttAdapter(),
 		templates: { 
-			suggestion:	_.compile("<p><div><strong><%= name %></strong><span class='grey small'> <%=  address%></span></div>" +
+			suggestion:	_.compile("<p><div><strong><%= name %></strong><span class='grey small'> <%= address%></span></div>" +
 					"<div class='grey small'><em><%= place_type %></em></div>" +
 					"<div class='grey small'>Rating: <%= rating %></div></p>")
 		}

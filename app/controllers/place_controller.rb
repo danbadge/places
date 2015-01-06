@@ -9,4 +9,9 @@ class PlaceController < ApplicationController
       format.json { render json: place_params, status: 201, location: "#{root_url}place/#{place.id}" }
     end
   end
+
+  def delete
+    Place.delete(params['id'])
+    render :nothing => true, :status => 200, :content_type => 'text/html'
+  end
 end

@@ -18,3 +18,11 @@ describe 'When adding a place to the list' do
     expect(response.headers['location']).to match(/http:\/\/localhost:3000\/place\/\d+/)
   end
 end
+
+describe 'When removing a place from the list' do
+  it 'should return 200 ok' do
+    response = HTTParty.delete('http://localhost:3000/place/12345')
+
+    expect(response.code).to eq(200)
+  end
+end
