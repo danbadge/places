@@ -37,6 +37,7 @@ class SearchForPlaces
       place.rating = result["rating"]
       place.place_type = result["types"].join(",")
       place.google_place_id = result["place_id"]
+      place.address = result['vicinity']
 
       places.push(place)
     end

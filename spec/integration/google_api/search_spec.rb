@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe 'searching for a place using google api' do
 
-  it 'should return a google place id, name, types, rating and location' do
+  it 'should return a google place id, name, types, rating, location and address' do
     searchForPlaces = SearchForPlaces.new
     places = searchForPlaces.find('the ledbury')
     place = places[0]
@@ -13,6 +13,7 @@ describe 'searching for a place using google api' do
     expect(place.latitude).to eq(51.516618)
     expect(place.place_type).to eq("bar,restaurant,food,establishment")
     expect(place.rating).to eq(4.7)
+    expect(place.address).to eq('127 Ledbury Road, London')
   end
 
   it 'should return multiple places' do
