@@ -8,7 +8,8 @@ describe 'mapping a place from a hash' do
 										 'place_type' => 'place,types',
 										 'rating' => 4.3,
 										 'latitude' => 89.4345334,
-										 'longitude' => -0.021312 }
+										 'longitude' => -0.021312,
+										 'address' => 'this,is,the,address' }
 
 		mapped_place = PlaceMapper.new().from(place_params)
 
@@ -18,6 +19,7 @@ describe 'mapping a place from a hash' do
 		expect(mapped_place.rating).to match(4.3)
 		expect(mapped_place.latitude).eql?(89.4345334)
 		expect(mapped_place.longitude).eql?(0.021312)
+		expect(mapped_place.address).to match('this,is,the,address')
 		expect(mapped_place.id).to be_nil
 	end
 end

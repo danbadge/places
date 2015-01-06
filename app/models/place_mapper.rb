@@ -5,6 +5,7 @@ class PlaceMapper
               :rating => place_hash['rating'],
               :latitude => place_hash['latitude'],
               :longitude => place_hash['longitude'],
-              :place_type => place_hash['place_type'])
+              :place_type => place_hash['place_type'],
+              :address => place_hash['address'])
   end
 end

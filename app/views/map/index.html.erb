@@ -25,7 +25,7 @@
 		    		{
 		      			"lat": <%= place.latitude %>,
 		      			"lng": <%= place.longitude %>,
-		      			"infowindow": "<div><strong><%= place.name %></strong></div><div><em><%= place.place_type %></em></div><div>Rating: <%= place.rating %></div>"
+		      			"infowindow": "<div><strong><%= place.name %></strong> <%= place.address %></div><div><em><%= place.place_type %></em></div><div>Rating: <%= place.rating %></div>"
 	    			},
     			<% end %>
 	  		]);
