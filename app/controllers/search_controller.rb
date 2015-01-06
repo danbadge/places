@@ -1,8 +1,8 @@
 class SearchController < ApplicationController
   def get
-    searchTerm = params[:q]
-    searchForPlaces = SearchForPlaces.new
-    places = searchForPlaces.find(searchTerm)
+    search_term = params[:q]
+    search_for_places = SearchForPlaces.new
+    places = search_for_places.find(search_term)
     respond_to do |format|
       format.json { render json: places }
     end
