@@ -49,3 +49,11 @@ div.search-form {
 .grey {
     color: #5D5D5D;
 }
+
+.top-buffer-sm {
+    margin-top: 5px;
+}
+
+.right-buffer {
+    margin-right: 10px;
+}

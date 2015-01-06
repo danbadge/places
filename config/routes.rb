@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   delete 'place/:id' => 'place#delete'
 
+  post 'place/:id/delete' => 'place#delete'
+
   get 'search' => 'search#get'
 
   # The priority is based upon order of creation: first created -> highest priority.

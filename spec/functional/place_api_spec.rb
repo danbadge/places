@@ -20,9 +20,10 @@ describe 'When adding a place to the list' do
 end
 
 describe 'When removing a place from the list' do
-  it 'should return 200 ok' do
-    response = HTTParty.delete('http://localhost:3000/place/12345')
+  it 'should be achievable via POST method which redirects to index' do
+    response = HTTParty.post('http://localhost:3000/place/12345/delete', { :follow_redirects => false })
 
-    expect(response.code).to eq(200)
+    expect(response.code).to eq(302)
+    expect(response.headers['location']).to eq('http://localhost:3000/')
   end
 end

@@ -12,6 +12,6 @@ class PlaceController < ApplicationController
 
   def delete
     Place.delete(params['id'])
-    render :nothing => true, :status => 200, :content_type => 'text/html'
+    redirect_to action: 'index', controller: 'map'
   end
 end
