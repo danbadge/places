@@ -53,6 +53,7 @@ $(function() {
 			success: function() {
                 var marker = addMarker(map, datum);
                 openInfoWindow(map, marker, datum);
+                map.panTo(marker.getPosition());
             },
 			error: function() { alert('error') }
 		})
