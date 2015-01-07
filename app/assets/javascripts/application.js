@@ -17,7 +17,6 @@
 
 //= require bootstrap.min
 //= require underscore-min
-//= require gmaps/google
 
 $(function() { 
 	_.compile = function(templ) {
@@ -51,7 +50,10 @@ $(function() {
 			data:JSON.stringify(datum),
 			contentType:"application/json; charset=utf-8",
 			dataType:"json",
-			success: function() { location.reload() },
+			success: function() {
+                var marker = addMarker(map, datum);
+                openInfoWindow(map, marker, datum);
+            },
 			error: function() { alert('error') }
 		})
     });

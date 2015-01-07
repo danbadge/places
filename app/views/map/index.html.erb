@@ -11,30 +11,57 @@
 <script src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js" type="text/javascript"></script>
 
 <script type="text/javascript" language="javascript">
-	handler = Gmaps.build('Google');
-	handler.buildMap({ 
-			internal: {id: 'map'},
-			provider: { 
-				zoom: 12,
-				center: new google.maps.LatLng(51.511918, -0.127501) // leicester square
-			}
-		}, 
-		function(){
-	  		markers = handler.addMarkers([
-	  			<% @places.each do |place| %>
-		    		{
-		      			"lat": <%= place.latitude %>,
-		      			"lng": <%= place.longitude %>,
-		      			"infowindow": "<div><strong><%= place.name %></strong> <%= place.address %></div>" +
-                                        "<div><em><%= place.place_type %></em></div>" +
-                                        "<div>Rating: <%= place.rating %></div>" +
-                                        "<form class='top-buffer-sm' id='delete_place' method='post' action='place/<%= place.id%>/delete'>" +
-                                        "<input type='submit' class='pull-right btn btn-danger btn-sm' value='Delete' /></form>"
-	    			},
-    			<% end %>
-	  		]);
+    var infowindow;
+    var map;
 
+    $(function() {
+        var options = {
+            zoom: 12,
+            center: new google.maps.LatLng(51.511918, -0.127501)
+        };
 
-	 		handler.bounds.extendWith(markers);
-		});
+        map = new google.maps.Map(document.getElementById('map'), options);
+
+        <% @places.each do |place| %>
+            var place = {
+                name: "<%= place.name %>",
+                address: "<%= place.address %>",
+                place_type: "<%= place.place_type %>",
+                id: "<%= place.id %>",
+                rating: "<%= place.rating %>",
+                latitude: <%= place.latitude %>,
+                longitude: <%= place.longitude %>
+            };
+            addMarker(map, place);
+        <% end %>
+    });
+
+    function addMarker(map, place) {
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(place.latitude, place.longitude),
+            map: map
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+            openInfoWindow(map, marker, place);
+        });
+
+        return marker;
+    }
+
+    function openInfoWindow(map, marker, place) {
+        if (infowindow) {
+            infowindow.close();
+        }
+        infowindow = new google.maps.InfoWindow({ content:  markerWindowHtml(place) });
+        infowindow.open(map,marker);
+    }
+    
+    function markerWindowHtml(place) {
+        return "<div><strong>" + place.name + "</strong> " + place.address + "</div>" +
+                "<div><em>" + place.place_type + "</em></div>" +
+                "<div>Rating: " + place.rating + "</div>" +
+                "<form class='top-buffer-sm' id='delete_place' method='post' action='place/" + place.id + "/delete'>" +
+                "<input type='submit' class='pull-right btn btn-danger btn-sm' value='Delete' /></form>";
+    }
 </script>
