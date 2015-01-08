@@ -4,9 +4,18 @@ class PlaceController < ApplicationController
   def post
     place_params = params['place']
     place = PlaceMapper.new().from(place_params)
-    place.save!
+    existing_place = Place.find_by_google_place_id(place.google_place_id)
+    if existing_place.nil?
+      http_status_code = 201
+      place.save!
+    else
+      http_status_code = 200
+      place.id = existing_place.id
+    end
+
+    place_params[:id] = place.id
     respond_to do |format|
-      format.json { render json: place_params, status: 201, location: "#{root_url}place/#{place.id}" }
+      format.json { render json: place_params, status: http_status_code, location: "#{root_url}place/#{place.id}" }
     end
   end
 
