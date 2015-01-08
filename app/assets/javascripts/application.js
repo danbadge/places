@@ -50,10 +50,19 @@ $(function() {
 			data:JSON.stringify(datum),
 			contentType:"application/json; charset=utf-8",
 			dataType:"json",
-			success: function() {
-                var marker = addMarker(map, datum);
-                openInfoWindow(map, marker, datum);
-                map.panTo(marker.getPosition());
+            statusCode: {
+                200: function (data) {
+                    //var marker = addMarker(map, datum);
+                    // get marker
+                    var marker = getMarker(data.id);
+                    openInfoWindow(map, marker, data);
+                    map.panTo(marker.getPosition());
+                },
+                201: function (data) {
+                    var marker = addMarker(map, data);
+                    openInfoWindow(map, marker, data);
+                    map.panTo(marker.getPosition());
+                }
             },
 			error: function() { alert('error') }
 		})

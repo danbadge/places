@@ -6,7 +6,6 @@ describe 'When adding a place to the list' do
   it 'should return 201 created' do
     response = add_place('g00glepl4ceid')
 
-    puts response['id']
     expect(response.code).to eq(201)
     expect(response.headers['location']).to match(/http:\/\/localhost:3000\/place\/\d+/)
 

@@ -13,6 +13,7 @@
 <script type="text/javascript" language="javascript">
     var infowindow;
     var map;
+    var markers = [];
 
     $(function() {
         var options = {
@@ -46,7 +47,24 @@
             openInfoWindow(map, marker, place);
         });
 
+
+
+        var markerById = {
+            id: place.id,
+            gmapMarker: marker
+        };
+
+        markers.push(markerById);
+
         return marker;
+    }
+
+    function getMarker(placeId) {
+        for (var i = 0; i < markers.length; i++) {
+            if (placeId == markers[i].id) {
+                return markers[i].gmapMarker;
+            }
+        }
     }
 
     function openInfoWindow(map, marker, place) {
